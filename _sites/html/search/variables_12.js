@@ -1,0 +1,20 @@
+var searchData=
+[
+  ['t',['t',['../structupdate__args.html#addc09d90e7323fc19a4e04b0612ef10b',1,'update_args::t()'],['../structnetwork.html#a185b52d74237f3cd32d2d0186d2d2f5b',1,'network::t()'],['../namespaceproverbot.html#aeda027db8b7d08f176f7192ec62bfbf2',1,'proverbot.t()']]],
+  ['tanh',['tanh',['../structlayer.html#a386df76b9ede3725ade44f66c45ecdcb',1,'layer']]],
+  ['temp2_5fcpu',['temp2_cpu',['../structlayer.html#a12c40b990c72966e93dc2936c5a91447',1,'layer']]],
+  ['temp3_5fcpu',['temp3_cpu',['../structlayer.html#a5576a957c950547134d305cb5e7ed42b',1,'layer']]],
+  ['temp_5fcpu',['temp_cpu',['../structlayer.html#a8a566c099cbba1da8bb7cc4d90643d0b',1,'layer']]],
+  ['temperature',['temperature',['../structlayer.html#a965290dca263c7774c9e9b4272a43c49',1,'layer']]],
+  ['threads',['threads',['../structload__args.html#a3f6b3f3ef9406ab124550bc8166f2dcd',1,'load_args']]],
+  ['thresh',['thresh',['../structlayer.html#a20c059ef419e2b863c67d4df87ec4488',1,'layer']]],
+  ['time_5fsteps',['time_steps',['../structnetwork.html#abaf83235b5968fb68a2dc9215cc67c8c',1,'network::time_steps()'],['../structsize__params.html#a6d1bb681fb27f447e5428776137a771a',1,'size_params::time_steps()']]],
+  ['top',['top',['../structbox__label.html#a1f60ec698e94e15cc51a2d5d9e07126c',1,'box_label']]],
+  ['total',['total',['../structlayer.html#a5899baa591f5d9e897b6af62b0fd13e0',1,'layer']]],
+  ['total_5fcount',['total_count',['../structmcts__tree.html#a454a9de890a8bbe762b7ffd430e46927',1,'mcts_tree']]],
+  ['train',['train',['../structnetwork.html#a32e7b55fe8dfa07391b6cdce17b4a2c1',1,'network']]],
+  ['truth',['truth',['../structlayer.html#ac669e3f8294d93e118977cec91bb792b',1,'layer::truth()'],['../structnetwork.html#a1453c2cf9a735bde55a281d698797a05',1,'network::truth()']]],
+  ['truth_5fthresh',['truth_thresh',['../structlayer.html#a53f9de692e18bf39eeaf322afa9612cb',1,'layer']]],
+  ['truths',['truths',['../structlayer.html#a086d4ebdf69d011ef4c11a487bd5ff60',1,'layer::truths()'],['../structnetwork.html#a794927f8c4d44cd8e85ff39e0d4c9939',1,'network::truths()']]],
+  ['type',['type',['../structlayer.html#af00e36adaf6e404a3e5234843c723714',1,'layer::type()'],['../structload__args.html#a281729b932cef85bb4e2a88e1133518d',1,'load_args::type()'],['../structsection.html#a0dc7e80c65705ebee2764d1f1fe590f8',1,'section::type()']]]
+];

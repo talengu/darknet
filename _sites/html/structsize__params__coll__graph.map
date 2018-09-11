@@ -1,0 +1,5 @@
+<map id="size_params" name="size_params">
+<area shape="rect" id="node2" href="$structnetwork.html" title="{network\n|+ n\l+ batch\l+ seen\l+ t\l+ epoch\l+ subdivisions\l+ output\l+ policy\l+ learning_rate\l+ momentum\land 42 more...\l|}" alt="" coords="31,515,142,721"/>
+<area shape="rect" id="node3" href="$structlayer.html" title="{layer\n|+ type\l+ activation\l+ cost_type\l+ forward\l+ backward\l+ update\l+ forward_gpu\l+ backward_gpu\l+ update_gpu\l+ batch_normalize\land 169 more...\l|}" alt="" coords="128,247,259,453"/>
+<area shape="rect" id="node4" href="$structtree.html" title="{tree\n|+ leaf\l+ n\l+ parent\l+ child\l+ group\l+ name\l+ groups\l+ group_size\l+ group_offset\l|}" alt="" coords="5,5,112,185"/>
+</map>

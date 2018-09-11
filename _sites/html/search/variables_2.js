@@ -1,0 +1,28 @@
+var searchData=
+[
+  ['c',['c',['../structlayer.html#a6d10d2818541049ff11e94b257077a2d',1,'layer::c()'],['../structnetwork.html#a05014921b926874b8a362aa83d98283a',1,'network::c()'],['../structimage.html#aa67d2491c4d17dd240453d69dfc99482',1,'image::c()'],['../structsize__params.html#aa260a97f277fe40b200756374ffe410d',1,'size_params::c()']]],
+  ['c_5fcpu',['c_cpu',['../structlayer.html#ae6b07fa9262cecce9ec149e37c001d81',1,'layer']]],
+  ['cell_5fcpu',['cell_cpu',['../structlayer.html#a0dbcc8d653aaea58b9aaddcda570b9fb',1,'layer']]],
+  ['center',['center',['../structnetwork.html#a87bf27881ed88606fae1b80f9049e4ca',1,'network::center()'],['../structload__args.html#a84a09ba4d910b1129e92dd91fa01d6f0',1,'load_args::center()']]],
+  ['child',['child',['../structtree.html#ac33525f8c2ea9df09aa39e4e5f0f46b0',1,'tree']]],
+  ['children',['children',['../structmcts__tree.html#ac3116e318ed83f71180e428ba9f09ba5',1,'mcts_tree']]],
+  ['class_5fscale',['class_scale',['../structlayer.html#a7175af778d4be5a066ccc212421617b7',1,'layer']]],
+  ['classes',['classes',['../structmetadata.html#a79e09a60e76b3658018e342933715f69',1,'metadata::classes()'],['../structlayer.html#af8d01e54a44d8682c38d431c32faed45',1,'layer::classes()'],['../structdetection.html#a5501f226bdc7ce3630666a8065fa70b9',1,'detection::classes()'],['../structload__args.html#af12ce52f9bf54ea7985cb0e9b9dfaf55',1,'load_args::classes()'],['../namespacevoc__label.html#a0dadf92eb37e0de693533dbafa6223d7',1,'voc_label.classes()']]],
+  ['classfix',['classfix',['../structlayer.html#a510630027ff3061ae0ad07e151fbf1a5',1,'layer']]],
+  ['clip',['clip',['../structlayer.html#a1728042fca5440265c959059a869bd2f',1,'layer::clip()'],['../structnetwork.html#ac04afd1b20edc7f8734cf2eabe4b57f0',1,'network::clip()']]],
+  ['coco_5fclasses',['coco_classes',['../coco_8c.html#a1da6305b8c6be56e3ec19a7ab02800c9',1,'coco.c']]],
+  ['coco_5fids',['coco_ids',['../coco_8c.html#a510b483a1df4daf892d602b2deedd78d',1,'coco.c']]],
+  ['col',['col',['../structmove.html#a01c0e5f86caca6c5e6d28968cb1f122a',1,'move']]],
+  ['colors',['colors',['../image_8c.html#a152d20c4917c0dd67a9b5694afcc4926',1,'image.c']]],
+  ['cols',['cols',['../structmatrix.html#a8a250fb537afd000561485dd88281356',1,'matrix']]],
+  ['combine_5fcpu',['combine_cpu',['../structlayer.html#abf10dce2bd742799a95eb1241e0c4e71',1,'layer']]],
+  ['combine_5fdelta_5fcpu',['combine_delta_cpu',['../structlayer.html#a00fca0bda761ca0a2ceaf81934b31293',1,'layer']]],
+  ['concat',['concat',['../structlayer.html#aa2edc68cb4713d7b34f52b27b2c0a35b',1,'layer']]],
+  ['concat_5fdelta',['concat_delta',['../structlayer.html#a1de4fac7dfc2c7c9ab387bc322246258',1,'layer']]],
+  ['coord_5fscale',['coord_scale',['../structlayer.html#a4cb681c94203182c328d7818bcb39de8',1,'layer']]],
+  ['coords',['coords',['../structlayer.html#a6b8636464bcea5dea2c2235ee133af29',1,'layer::coords()'],['../structload__args.html#a8db147261d62a355ba735d96f99ada43',1,'load_args::coords()']]],
+  ['cost',['cost',['../structlayer.html#a9a71dbf0ad70f63a10787d8217633776',1,'layer::cost()'],['../structnetwork.html#ac80b4b4eeda5cf4cc4af5c2173d0ad31',1,'network::cost()']]],
+  ['cost_5ftype',['cost_type',['../structlayer.html#a8f172c29b1ada15656f1f346e7491507',1,'layer']]],
+  ['counts',['counts',['../structlayer.html#a394f545b22a67ae82f4f02c991b69711',1,'layer']]],
+  ['cweights',['cweights',['../structlayer.html#a5a1da440e0ebe63674288f9006bd8ad7',1,'layer']]]
+];

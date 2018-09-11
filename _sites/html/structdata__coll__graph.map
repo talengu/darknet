@@ -1,0 +1,4 @@
+<map id="data" name="data">
+<area shape="rect" id="node2" href="$structmatrix.html" title="{matrix\n|+ rows\l+ cols\l+ vals\l|}" alt="" coords="5,12,66,112"/>
+<area shape="rect" id="node3" href="$structbox.html" title="{box\n|+ x\l+ y\l+ w\l+ h\l|}" alt="" coords="90,5,133,119"/>
+</map>

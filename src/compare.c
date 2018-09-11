@@ -1,3 +1,4 @@
+#ifdef _COMPARE_
 #include <stdio.h>
 
 #include "network.h"
@@ -350,3 +351,5 @@ void run_compare(int argc, char **argv)
        else if(0==strcmp(argv[2], "valid")) validate_recall(cfg, weights);
      */
 }
+
+#endif

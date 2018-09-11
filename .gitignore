@@ -25,3 +25,7 @@ ehthumbs.db
 Icon?
 Thumbs.db
 *.swp
+
+src/compare.c
+.idea/*
+cmake-build-debug/*

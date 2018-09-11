@@ -1,0 +1,7 @@
+<map id="load_args" name="load_args">
+<area shape="rect" id="node2" href="$structimage.html" title="{image\n|+ w\l+ h\l+ c\l+ data\l|}" alt="" coords="5,227,64,340"/>
+<area shape="rect" id="node3" href="$structdata.html" title="{data\n|+ w\l+ h\l+ shallow\l+ num_boxes\l|}" alt="" coords="88,227,190,340"/>
+<area shape="rect" id="node4" href="$structmatrix.html" title="{matrix\n|+ rows\l+ cols\l+ vals\l|}" alt="" coords="70,12,131,112"/>
+<area shape="rect" id="node5" href="$structbox.html" title="{box\n|+ x\l+ y\l+ w\l+ h\l|}" alt="" coords="155,5,197,119"/>
+<area shape="rect" id="node6" href="$structtree.html" title="{tree\n|+ leaf\l+ n\l+ parent\l+ child\l+ group\l+ name\l+ groups\l+ group_size\l+ group_offset\l|}" alt="" coords="213,193,320,373"/>
+</map>

@@ -1,0 +1,23 @@
+var searchData=
+[
+  ['m',['m',['../structlayer.html#acfd875ae4a4c774d30e04e03a24085f9',1,'layer::m()'],['../structload__args.html#aca89fa6ea8f11383062a905539477001',1,'load_args::m()']]],
+  ['make_5fimage',['make_image',['../namespacedarknet.html#afcaae0b369287ee4f8ee7ef51ddd22b1',1,'darknet']]],
+  ['make_5fnetwork_5fboxes',['make_network_boxes',['../namespacedarknet.html#a8c38abc84ebb7e2c24b1ceb5b6af21ec',1,'darknet']]],
+  ['map',['map',['../structlayer.html#a9950b1b44120256269e082cb5efbd42e',1,'layer']]],
+  ['mask',['mask',['../structlayer.html#aaa82c8e027d08dfd571c663653f85588',1,'layer::mask()'],['../structdetection.html#a52d75f4c96f7ae42075f4792b1852946',1,'detection::mask()']]],
+  ['mask_5fscale',['mask_scale',['../structlayer.html#a9e6e9d0cbdfbef34920e842d0542670e',1,'layer']]],
+  ['max',['max',['../structload__args.html#a7f5319b3ca7889ed85ac8cc60de8a40d',1,'load_args']]],
+  ['max_5fbatches',['max_batches',['../structnetwork.html#a163b931990a5ac8f456884405de2192b',1,'network']]],
+  ['max_5fboxes',['max_boxes',['../structlayer.html#a97f045f2c42981c7d1b9e47b8c69788f',1,'layer']]],
+  ['max_5fcrop',['max_crop',['../structnetwork.html#af98abf1cccd7bfee97b9f7eae752687c',1,'network']]],
+  ['max_5fratio',['max_ratio',['../structnetwork.html#a181329911f37d2d5adce2290683a9897',1,'network']]],
+  ['mcts',['mcts',['../structmove.html#ad8ad6dbebccc053ed00711fdfd8f7a6d',1,'move']]],
+  ['mean',['mean',['../structmcts__tree.html#aaa243f2c96b587bd32b7376737289ba0',1,'mcts_tree::mean()'],['../structlayer.html#a57e3ce10060c51c846086d20944f2448',1,'layer::mean()']]],
+  ['mean_5fdelta',['mean_delta',['../structlayer.html#a6ae807c0129ad454f9a850e2e5c20544',1,'layer']]],
+  ['meta',['meta',['../namespacedetector-scipy-opencv.html#aefa8c13d2324512c8b50817683901197',1,'detector-scipy-opencv.meta()'],['../namespacedetector.html#aedc2b8598b9d478706ca6e093b188642',1,'detector.meta()'],['../namespacedarknet.html#ae61a1edabe435136c755d64a6183a9c0',1,'darknet.meta()']]],
+  ['min',['min',['../structload__args.html#a1dceb8bb209570cf9dd9fd5de36f206d',1,'load_args']]],
+  ['min_5fcrop',['min_crop',['../structnetwork.html#a9e52bfae3a850150ed2e32c10ab11bec',1,'network']]],
+  ['min_5fratio',['min_ratio',['../structnetwork.html#a395ccde63912c9272f91ee6c9af14784',1,'network']]],
+  ['momentum',['momentum',['../structupdate__args.html#abc35ad880888473f137cb9744e874870',1,'update_args::momentum()'],['../structnetwork.html#a495c60ef821ca0ade1c42907c8bc90bf',1,'network::momentum()']]],
+  ['mutex',['mutex',['../data_8c.html#a4acff8232e4aec9cd5c6dc200ac55ef3',1,'data.c']]]
+];

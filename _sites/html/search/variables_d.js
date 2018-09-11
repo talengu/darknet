@@ -1,0 +1,22 @@
+var searchData=
+[
+  ['n',['n',['../structmoves.html#aa81066b4e56914d3d6fa93fee404e062',1,'moves::n()'],['../structtree.html#a2273fc7497601bfaf9121d1a797453b5',1,'tree::n()'],['../structlayer.html#a454b8980d0186eb0095a25aadef41744',1,'layer::n()'],['../structnetwork.html#a1c7625720955322d05924a075d013877',1,'network::n()'],['../structload__args.html#a46de5db87a3c8c05130d5b23a2cdea2f',1,'load_args::n()']]],
+  ['name',['name',['../structtree.html#aef62d17752842a143625d7313073c068',1,'tree']]],
+  ['names',['names',['../structmetadata.html#aee443b3a2259ad9031259d20ddf79086',1,'metadata']]],
+  ['nbiases',['nbiases',['../structlayer.html#a8da8330f6a80f7fcb86fb2421c0484e5',1,'layer']]],
+  ['net',['net',['../structsize__params.html#a44ffe1479502733a5b79cb00a1cb2f87',1,'size_params::net()'],['../namespacedetector-scipy-opencv.html#a5e661955bb33e5ddd0c20e700ef246b1',1,'detector-scipy-opencv.net()'],['../namespacedetector.html#a2d5cb51517045a5de5fc1b439ea5caf1',1,'detector.net()'],['../namespacedarknet.html#adc6a45d045e33aea7cdb3d217a6a7d35',1,'darknet.net()'],['../namespaceproverbot.html#a76d62031ec897d73169a3dd75791259a',1,'proverbot.net()']]],
+  ['network_5fpredict',['network_predict',['../namespacedarknet.html#a3b055662e0f991bb29e2dedac571fd3b',1,'darknet']]],
+  ['next',['next',['../structnode.html#aa3e8aa83f864292b5a01210f4453fcc0',1,'node']]],
+  ['nh',['nh',['../structload__args.html#a2a9063dbc5416dc01971bec6a3179a80',1,'load_args']]],
+  ['noadjust',['noadjust',['../structlayer.html#addd7dd5ca8a7ce6bb15aa2d06efe69ee',1,'layer']]],
+  ['noi',['noi',['../go_8c.html#afd34566fdbd8e7f8f4d5b750a3040191',1,'go.c']]],
+  ['noloss',['noloss',['../structlayer.html#adb76d65c794792dbed1932aaa560a1aa',1,'layer']]],
+  ['noobject_5fscale',['noobject_scale',['../structlayer.html#ad10b4f2f32b1991c3cd8e66d138c5eaa',1,'layer']]],
+  ['norms',['norms',['../structlayer.html#acb730788dd9a0c77c7e501b9118a2933',1,'layer']]],
+  ['notruth',['notruth',['../structnetwork.html#a6769bc5e23225cecf0a46eedba29719a',1,'network']]],
+  ['num_5fboxes',['num_boxes',['../structdata.html#afba4d3b06050db7a30b0b11809ae6e23',1,'data::num_boxes()'],['../structload__args.html#ac8bdb2525a537b886829037122651101',1,'load_args::num_boxes()']]],
+  ['num_5fsteps',['num_steps',['../structnetwork.html#a6e656092c18afdc2bcb72f87d0ed2547',1,'network']]],
+  ['numload',['numload',['../structlayer.html#a8bec1047611039a963da6e7fdb0bf4ff',1,'layer']]],
+  ['nw',['nw',['../structload__args.html#a46bfaa805648b12918b2fff4c66940c7',1,'load_args']]],
+  ['nweights',['nweights',['../structlayer.html#a76a23567dbc4b223d8ba3c34c0f5e82f',1,'layer']]]
+];

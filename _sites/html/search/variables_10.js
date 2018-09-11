@@ -1,0 +1,24 @@
+var searchData=
+[
+  ['r',['r',['../namespacedetector-scipy-opencv.html#a454d4a9590e11c36c21186a87d98a199',1,'detector-scipy-opencv.r()'],['../namespacedetector.html#a1887c1b46d5441587cbf44391c466bf8',1,'detector.r()'],['../namespacedarknet.html#aa63511145b33161bf394732457420be6',1,'darknet.r()']]],
+  ['r_5fcpu',['r_cpu',['../structlayer.html#aaaefd9c6dccae5505e5600831d99a026',1,'layer']]],
+  ['rad',['rad',['../structaugment__args.html#ad40390f9fe68f5079f95789b6673b2e9',1,'augment_args']]],
+  ['rand',['rand',['../structlayer.html#a254a888ee1b4383a7ce6035a88e7b825',1,'layer']]],
+  ['random',['random',['../structlayer.html#a411feca89284377c83dd97141540dd83',1,'layer::random()'],['../structnetwork.html#a89dfdaa6178f338c250d7b6631476fa1',1,'network::random()']]],
+  ['ratio',['ratio',['../structlayer.html#a2752501fc00b1ff2bdd19e0a24b5370c',1,'layer']]],
+  ['read',['read',['../structstbi__io__callbacks.html#a623e46b3a2a019611601409926283a88',1,'stbi_io_callbacks']]],
+  ['reorg',['reorg',['../structlayer.html#a13f7dcacfefce8f8f5694dad9e5aa6ae',1,'layer']]],
+  ['rescore',['rescore',['../structlayer.html#a662867ba4218e923a302fd215dab2ddd',1,'layer']]],
+  ['reset_5flayer',['reset_layer',['../structlayer.html#a091a5757286a08a99ee76cd332ae8631',1,'layer']]],
+  ['reset_5frnn',['reset_rnn',['../namespacedarknet.html#a3b81bfa75dea1539c68ceea4e8e1d1ab',1,'darknet']]],
+  ['resized',['resized',['../structload__args.html#aa9dc3e3e93a6031df60420a5cb36c508',1,'load_args']]],
+  ['restype',['restype',['../namespacedarknet.html#a236a643b258c1e18e3051a0460b4717d',1,'darknet']]],
+  ['result',['result',['../structmcts__tree.html#a28b1271b89ebe12d66448a5f07dd1b1e',1,'mcts_tree']]],
+  ['reverse',['reverse',['../structlayer.html#abf6e12515b8a316fb280c43234701022',1,'layer']]],
+  ['rgbgr_5fimage',['rgbgr_image',['../namespacedarknet.html#ad1fa5910113bff57cabbe2907cf09904',1,'darknet']]],
+  ['right',['right',['../structbox__label.html#a4c7c88557656ba121f112021522b5837',1,'box_label']]],
+  ['rolling_5fmean',['rolling_mean',['../structlayer.html#aadc24d03a6dbab21fcafad3d29bb1310',1,'layer']]],
+  ['rolling_5fvariance',['rolling_variance',['../structlayer.html#a316830907cb724b9304cea311c8d8dc5',1,'layer']]],
+  ['row',['row',['../structmove.html#aa437d87395d9a7ae28b49eb49c5fdfe9',1,'move']]],
+  ['rows',['rows',['../structmatrix.html#af83737a5597214de0458c5535a787143',1,'matrix']]]
+];

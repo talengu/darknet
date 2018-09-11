@@ -1,0 +1,21 @@
+var searchData=
+[
+  ['d',['d',['../structload__args.html#a0b1c4f762d67a0f0cbcc1241cfa5463d',1,'load_args']]],
+  ['data',['data',['../structmoves.html#ac078836de92eeac5dda2fb83ae0b0f2f',1,'moves::data()'],['../structimage.html#aed7e0704080213b735419d6661251a0a',1,'image::data()']]],
+  ['dc_5fcpu',['dc_cpu',['../structlayer.html#ac4bc1b441b4be3b7a33d48934d883a92',1,'layer']]],
+  ['decay',['decay',['../structupdate__args.html#a9eb5a4b5663dca4b69a13a19da674f19',1,'update_args::decay()'],['../structnetwork.html#a9afd53b100d35dc162e48118ef4f7eea',1,'network::decay()']]],
+  ['delta',['delta',['../structlayer.html#a1360cf3c28df067cc6f3af139fa95d3a',1,'layer::delta()'],['../structnetwork.html#a7787a7dde0eea2d91b208c23cdba6286',1,'network::delta()']]],
+  ['dh',['dh',['../structdbox.html#a8321cbf92c464ba9c4eca5b8f0e9f48b',1,'dbox']]],
+  ['dh_5fcpu',['dh_cpu',['../structlayer.html#acb9dec30688fb0f1d836e14e507a441d',1,'layer']]],
+  ['dice_5flabels',['dice_labels',['../dice_8c.html#a72bfcb4e2deb15ebb6af70e1a0111c85',1,'dice.c']]],
+  ['do_5fnms_5fobj',['do_nms_obj',['../namespacedarknet.html#acb4a34668c7ee14161302ee07f3a322a',1,'darknet']]],
+  ['do_5fnms_5fsort',['do_nms_sort',['../namespacedarknet.html#ac69cf6b9f363f348b3f05e4ad183a873',1,'darknet']]],
+  ['done',['done',['../structmcts__tree.html#adc0ebbeaa070a62f6530f1fe59c0a036',1,'mcts_tree']]],
+  ['dontload',['dontload',['../structlayer.html#a90d11f2ddc0ae1f0bfcce33d5eab9f1b',1,'layer']]],
+  ['dontloadscales',['dontloadscales',['../structlayer.html#a5ba6e7bfc48b309721ddbed942d2d531',1,'layer']]],
+  ['dontsave',['dontsave',['../structlayer.html#acc28d07d2164bd944a3a3857b482629d',1,'layer']]],
+  ['dot',['dot',['../structlayer.html#aaf67b912e38bb35777c7dd1867217a06',1,'layer']]],
+  ['dw',['dw',['../structdbox.html#a2d3a509dafd2b6c42326e0a008b1d929',1,'dbox']]],
+  ['dx',['dx',['../structaugment__args.html#a74675af1ca9ba9cfc2f97da65fad1ff7',1,'augment_args::dx()'],['../structdbox.html#af24e1ef9eae9dbcfefbcd86cc7ab342f',1,'dbox::dx()']]],
+  ['dy',['dy',['../structaugment__args.html#aee2e7812e750cd312082426e3a2fc7a2',1,'augment_args::dy()'],['../structdbox.html#acfa3fcbd522bc347d91b27229a935e1b',1,'dbox::dy()']]]
+];
