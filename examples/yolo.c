@@ -6,21 +6,32 @@ void train_yolo(char *cfgfile, char *weightfile)
 {
     char *train_images = "/data/voc/train.txt";
     char *backup_directory = "/home/pjreddie/backup/";
+    /*srand函数是随机数发生器的初始化函数。
+    srand和rand()配合使用产生伪随机数序列。rand函数在产生随机数前，需要系统提供的生成伪随机数序列的
+    种子，rand根据这个种子的值产生一系列随机数。如果系统提供的种子没有变化，每次调用rand函数生成的伪
+    随机数序列都是一样的。*/
     srand(time(0));
-    char *base = basecfg(cfgfile);
+    char *base = basecfg(cfgfile);//为了后面存储weights的base name
     printf("%s\n", base);
     float avg_loss = -1;
     network *net = load_network(cfgfile, weightfile, 0);
     printf("Learning Rate: %g, Momentum: %g, Decay: %g\n", net->learning_rate, net->momentum, net->decay);
+
+    /*imgs是一次加载到内存的图像数量，如果占内存太大的话可以把subdivisions或者batch调小一点
+    详细可以参考知乎：[深度机器学习中的batch的大小对学习效果有何影响？](https://www.zhihu.com/question/32673260)*/
     int imgs = net->batch*net->subdivisions;
+    //net.seen就是已经经过网络训练（看）的图片数量，算出的i就是已经经过了多少次训练
     int i = *net->seen/imgs;
     data train, buffer;
 
 
     layer l = net->layers[net->n - 1];
 
+    //side就是论文中的7
     int side = l.side;
     int classes = l.classes;
+    //jitter是什么意思呢？可以参考这篇博客：[非均衡数据集处理：利用抖动(jittering)生成额外数据]
+    // (http://weibo.com/1402400261/EgMr4vCC2?type=comment#_rnd1478833653326)
     float jitter = l.jitter;
 
     list *plist = get_paths(train_images);
@@ -31,25 +42,32 @@ void train_yolo(char *cfgfile, char *weightfile)
     args.w = net->w;
     args.h = net->h;
     args.paths = paths;
+    //n就是一次加载到内存中的图片数量
     args.n = imgs;
+    //m是待训练图片的总数量
     args.m = plist->size;
     args.classes = classes;
     args.jitter = jitter;
+    //7*7个网格
     args.num_boxes = side;
     args.d = &buffer;
     args.type = REGION_DATA;
 
+    //调节图片旋转角度、曝光度、饱和度、色调等，来增加图片数量
     args.angle = net->angle;
     args.exposure = net->exposure;
     args.saturation = net->saturation;
     args.hue = net->hue;
 
+    //声明线程ID
     pthread_t load_thread = load_data_in_thread(args);
     clock_t time;
     //while(i*imgs < N*120){
     while(get_current_batch(net) < net->max_batches){
         i += 1;
         time=clock();
+        /*pthread_join()函数，以阻塞的方式等待thread指定的线程结束。当函数返回时，被等待线程的资源被
+        收回。如果线程已经结束，那么该函数会立即返回。*/
         pthread_join(load_thread, 0);
         train = buffer;
         load_thread = load_data_in_thread(args);
@@ -57,11 +75,13 @@ void train_yolo(char *cfgfile, char *weightfile)
         printf("Loaded: %lf seconds\n", sec(clock()-time));
 
         time=clock();
+        //开始训练
         float loss = train_network(net, train);
         if (avg_loss < 0) avg_loss = loss;
         avg_loss = avg_loss*.9 + loss*.1;
 
         printf("%d: %f, %f avg, %f rate, %lf seconds, %d images\n", i, loss, avg_loss, get_current_rate(net), sec(clock()-time), i*imgs);
+        //每100次或者1000次保存一次权重
         if(i%1000==0 || (i < 1000 && i%100 == 0)){
             char buff[256];
             sprintf(buff, "%s/%s_%d.weights", backup_directory, base, i);
@@ -304,6 +324,7 @@ void test_yolo(char *cfgfile, char *weightfile, char *filename, float thresh)
     }
 }
 
+// 通过extern 这种方法run_yolo
 void run_yolo(int argc, char **argv)
 {
     char *prefix = find_char_arg(argc, argv, "-prefix", 0);
@@ -320,6 +341,7 @@ void run_yolo(int argc, char **argv)
     char *weights = (argc > 4) ? argv[4] : 0;
     char *filename = (argc > 5) ? argv[5]: 0;
     if(0==strcmp(argv[2], "test")) test_yolo(cfg, weights, filename, thresh);
+        //第二个参数是train，所以跳转到了train_yolo函数
     else if(0==strcmp(argv[2], "train")) train_yolo(cfg, weights);
     else if(0==strcmp(argv[2], "valid")) validate_yolo(cfg, weights);
     else if(0==strcmp(argv[2], "recall")) validate_yolo_recall(cfg, weights);

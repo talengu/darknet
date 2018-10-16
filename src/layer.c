@@ -3,6 +3,7 @@
 
 #include <stdlib.h>
 
+// 释放layer资源
 void free_layer(layer l)
 {
     if(l.type == DROPOUT){
