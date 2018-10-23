@@ -8,7 +8,7 @@ typedef struct{
     int used;
 } kvp;
 
-
+// 对option下面的进行解析
 int read_option(char *s, list *options);
 void option_insert(list *l, char *key, char *val);
 char *option_find(list *l, char *key);

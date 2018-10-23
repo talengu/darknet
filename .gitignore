@@ -29,3 +29,7 @@ Thumbs.db
 
 cmake-build-debug/*
 .idea/*
+_sites/*
+libdarknet.a
+libdarknet.so
+talen_experiment/*

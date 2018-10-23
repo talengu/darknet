@@ -117,6 +117,7 @@ typedef struct network network;
 struct layer;
 typedef struct layer layer;
 
+// 层的定义
 struct layer{
     LAYER_TYPE type;
     ACTIVATION activation;
@@ -600,6 +601,7 @@ typedef struct node{
     struct node *prev;
 } node;
 
+// 带双ptr的列表
 typedef struct list{
     int size;
     node *front;

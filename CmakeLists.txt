@@ -26,7 +26,7 @@ IF(WITH_OPENCV)
         LINK_DIRECTORIES(${OpenCV_LIBS})
     ENDIF()
 ENDIF()
-FILE(GLOB DARKNET_CPU_SOURCES "src/*.c" "src/*.h")
+FILE(GLOB DARKNET_CPU_SOURCES "src/*.c" "src/*.h" "examples/*.c")
 INCLUDE_DIRECTORIES("./include/")
 ADD_LIBRARY(darknet_cpu STATIC
         ${DARKNET_CPU_SOURCES}

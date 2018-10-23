@@ -44,6 +44,7 @@ typedef struct{
 
 list *read_cfg(char *filename);
 
+// 从string到LAYER_TYPE 切换
 LAYER_TYPE string_to_layer_type(char * type)
 {
 
@@ -652,6 +653,7 @@ learning_rate_policy get_policy(char *s)
     return CONSTANT;
 }
 
+//整个网络的配置parse
 void parse_net_options(list *options, network *net)
 {
     net->batch = option_find_int(options, "batch",1);
@@ -741,6 +743,8 @@ int is_network(section *s)
 
 network *parse_network_cfg(char *filename)
 {
+    //read_cfg这个函数将所有的参数读到一个图中
+    //https://blog.csdn.net/u014540717/article/details/53193433
     list *sections = read_cfg(filename);
     node *n = sections->front;
     if(!n) error("Config file has no sections");
@@ -748,7 +752,7 @@ network *parse_network_cfg(char *filename)
     net->gpu_index = gpu_index;
     size_params params;
 
-    section *s = (section *)n->val;
+    section *s = (section *)n->val; //第一个section 为整个网络的配置
     list *options = s->options;
     if(!is_network(s)) error("First section must be [net] or [network]");
     parse_net_options(options, net);
@@ -762,16 +766,16 @@ network *parse_network_cfg(char *filename)
     params.net = net;
 
     size_t workspace_size = 0;
-    n = n->next;
+    n = n->next; //下一个section
     int count = 0;
-    free_section(s);
+    free_section(s); //将net options的资源进行释放
     fprintf(stderr, "layer     filters    size              input                output\n");
     while(n){
         params.index = count;
         fprintf(stderr, "%5d ", count);
         s = (section *)n->val;
         options = s->options;
-        layer l = {0};
+        layer l = {0}; // 层初始化
         LAYER_TYPE lt = string_to_layer_type(s->type);
         if(lt == CONVOLUTIONAL){
             l = parse_convolutional(options, params);
@@ -848,7 +852,7 @@ network *parse_network_cfg(char *filename)
         l.learning_rate_scale = option_find_float_quiet(options, "learning_rate", 1);
         l.smooth = option_find_float_quiet(options, "smooth", 0);
         option_unused(options);
-        net->layers[count] = l;
+        net->layers[count] = l; //由于之前已经创建好了所以可以之间访问
         if (l.workspace_size > workspace_size) workspace_size = l.workspace_size;
         free_section(s);
         n = n->next;
@@ -857,7 +861,7 @@ network *parse_network_cfg(char *filename)
             params.h = l.out_h;
             params.w = l.out_w;
             params.c = l.out_c;
-            params.inputs = l.outputs;
+            params.inputs = l.outputs; //输出为输入
         }
     }
     free_list(sections);

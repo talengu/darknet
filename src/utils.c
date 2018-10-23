@@ -177,6 +177,8 @@ char *find_char_arg(int argc, char **argv, char *arg, char *def)
 
 
 char *basecfg(char *cfgfile)
+/*`basecfg()`这个函数把`cfg/yolo.train.cfg`变成了
+    `yolo0train.cfg`，然后用base指针指向`yolo0train.cfg`*/
 {
     char *c = cfgfile;
     char *next;
@@ -301,6 +303,7 @@ list *split_str(char *s, char delim)
 
 void strip(char *s)
 {
+    // 变成string？
     size_t i;
     size_t len = strlen(s);
     size_t offset = 0;

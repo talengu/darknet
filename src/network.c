@@ -52,10 +52,12 @@ load_args get_base_args(network *net)
 
 network *load_network(char *cfg, char *weights, int clear)
 {
+    //网络参数解析函数
     network *net = parse_network_cfg(cfg);
     if(weights && weights[0] != 0){
         load_weights(net, weights);
     }
+    // 由于seen记录了处理images的个数所以置1就是清除操作。
     if(clear) (*net->seen) = 0;
     return net;
 }
@@ -178,7 +180,7 @@ network *make_network(int n)
 {
     network *net = calloc(1, sizeof(network));
     net->n = n;
-    net->layers = calloc(net->n, sizeof(layer));
+    net->layers = calloc(net->n, sizeof(layer)); //有多少层
     net->seen = calloc(1, sizeof(size_t));
     net->t    = calloc(1, sizeof(int));
     net->cost = calloc(1, sizeof(float));
@@ -698,6 +700,7 @@ float *network_accuracies(network *net, data d, int n)
 
 layer get_network_output_layer(network *net)
 {
+    //cost layer 为输出层
     int i;
     for(i = net->n - 1; i >= 0; --i){
         if(net->layers[i].type != COST) break;

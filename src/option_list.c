@@ -77,6 +77,7 @@ void option_insert(list *l, char *key, char *val)
 }
 
 void option_unused(list *l)
+// 没有使用到的参数
 {
     node *n = l->front;
     while(n){
@@ -88,6 +89,7 @@ void option_unused(list *l)
     }
 }
 
+// 查找文件名一样的参数
 char *option_find(list *l, char *key)
 {
     node *n = l->front;
