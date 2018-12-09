@@ -47,6 +47,11 @@ void forward_activation_layer(layer l, network net)
     activate_array(l.output, l.outputs*l.batch, l.activation);
 }
 
+/**
+* @brief 将计算好的 l.delta 转到 net.delta
+* @param[in] l    layer
+* @param[out] net    network
+*/
 void backward_activation_layer(layer l, network net)
 {
     gradient_array(l.output, l.outputs*l.batch, l.activation, l.delta);

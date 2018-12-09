@@ -42,7 +42,7 @@ void forward_dropout_layer(dropout_layer l, network net)
     for(i = 0; i < l.batch * l.inputs; ++i){
         float r = rand_uniform(0, 1);
         l.rand[i] = r;
-        if(r < l.probability) net.input[i] = 0;
+        if(r < l.probability) net.input[i] = 0;// 将input 设为0
         else net.input[i] *= l.scale;
     }
 }
