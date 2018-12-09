@@ -141,9 +141,13 @@ float gradient(float x, ACTIVATION a)
 }
 
 void gradient_array(const float *x, const int n, const ACTIVATION a, float *delta)
+/* x 是 n 维度的
+ * 最后在delta上面进行输出
+ * */
 {
     int i;
     for(i = 0; i < n; ++i){
+        // 可以选用不同的激活计算方式
         delta[i] *= gradient(x[i], a);
     }
 } 

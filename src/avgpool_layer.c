@@ -2,21 +2,25 @@
 #include "cuda.h"
 #include <stdio.h>
 
+// 输入维度的设置
 avgpool_layer make_avgpool_layer(int batch, int w, int h, int c)
 {
     fprintf(stderr, "avg                     %4d x%4d x%4d   ->  %4d\n",  w, h, c, c);
     avgpool_layer l = {0};
     l.type = AVGPOOL;
     l.batch = batch;
+
     l.h = h;
     l.w = w;
     l.c = c;
+    l.inputs = h*w*c;
+
     l.out_w = 1;
     l.out_h = 1;
     l.out_c = c;
     l.outputs = l.out_c;
-    l.inputs = h*w*c;
-    int output_size = l.outputs * batch;
+
+    int output_size = l.outputs * batch; // 输出的数据大小
     l.output =  calloc(output_size, sizeof(float));
     l.delta =   calloc(output_size, sizeof(float));
     l.forward = forward_avgpool_layer;
@@ -34,7 +38,7 @@ void resize_avgpool_layer(avgpool_layer *l, int w, int h)
 {
     l->w = w;
     l->h = h;
-    l->inputs = h*w*l->c;
+    l->inputs = h*w*l->c; // 层的长度
 }
 
 void forward_avgpool_layer(const avgpool_layer l, network net)

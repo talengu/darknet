@@ -1,3 +1,4 @@
+// 加载数据 所使用到的函数
 #ifndef DATA_H
 #define DATA_H
 #include <pthread.h>

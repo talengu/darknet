@@ -524,7 +524,7 @@ typedef struct {
     int h;
     int c;
     float *data;
-} image;
+} image; //构建一个图片frame的数据格式
 
 typedef struct{
     float x, y, w, h;

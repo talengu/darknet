@@ -9,9 +9,11 @@
 #include <stdlib.h>
 #include <string.h>
 
+
 layer make_activation_layer(int batch, int inputs, ACTIVATION activation)
+//创建一个激活层，创建梯度等，也将方法放到加进去了。
 {
-    layer l = {0};
+    layer l = {0}; //层初始化
     l.type = ACTIVE;
 
     l.inputs = inputs;
@@ -35,15 +37,21 @@ layer make_activation_layer(int batch, int inputs, ACTIVATION activation)
     return l;
 }
 
+//NOTE：这里我们可以看到，layer 这个层是用来计算的，而network层是用来存数据的。
 void forward_activation_layer(layer l, network net)
 {
+    // 将数据从net.input 拷贝到 l.output
     copy_cpu(l.outputs*l.batch, net.input, 1, l.output, 1);
+
+    // 以 l.activation的方式 更新 l.output 的数据
     activate_array(l.output, l.outputs*l.batch, l.activation);
 }
 
 void backward_activation_layer(layer l, network net)
 {
     gradient_array(l.output, l.outputs*l.batch, l.activation, l.delta);
+
+    //将计算好的 l.delta 转到 net.delta
     copy_cpu(l.outputs*l.batch, l.delta, 1, net.delta, 1);
 }
 

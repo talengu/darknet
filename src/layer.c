@@ -3,7 +3,8 @@
 
 #include <stdlib.h>
 
-// 释放layer资源
+// 释放layer资源 这里可以标注下这些数据用来干什么的。
+// NOTE：darknet 通过 layer计算值 然后更新到 network 里面得到保存。
 void free_layer(layer l)
 {
     if(l.type == DROPOUT){

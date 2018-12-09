@@ -1,3 +1,4 @@
+// 激活和梯度的计算
 #ifndef ACTIVATIONS_H
 #define ACTIVATIONS_H
 #include "darknet.h"
@@ -51,6 +52,7 @@ static inline float lhtan_activate(float x)
     if(x > 1) return .001*(x-1) + 1;
     return x;
 }
+// 梯度的计算
 static inline float lhtan_gradient(float x)
 {
     if(x > 0 && x < 1) return 1;

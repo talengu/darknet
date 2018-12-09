@@ -23,7 +23,7 @@ softmax_layer make_softmax_layer(int batch, int inputs, int groups)
     l.delta = calloc(inputs*batch, sizeof(float));
     l.cost = calloc(1, sizeof(float));
 
-    l.forward = forward_softmax_layer;
+    l.forward = forward_softmax_layer; //TODO: 只是记录函数名称？？
     l.backward = backward_softmax_layer;
     #ifdef GPU
     l.forward_gpu = forward_softmax_layer_gpu;

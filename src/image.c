@@ -754,6 +754,7 @@ image make_empty_image(int w, int h, int c)
 }
 
 image make_image(int w, int h, int c)
+//创建图片空间
 {
     image out = make_empty_image(w,h,c);
     out.data = calloc(h*w*c, sizeof(float));
@@ -1349,6 +1350,7 @@ void saturate_exposure_image(image im, float sat, float exposure)
 }
 
 image resize_image(image im, int w, int h)
+// 666 resize 也是自己写的
 {
     image resized = make_image(w, h, im.c);   
     image part = make_image(w, im.h, im.c);
@@ -1444,6 +1446,7 @@ void test_resize(char *filename)
 
 
 image load_image_stb(char *filename, int channels)
+//加载图片的函数
 {
     int w, h, c;
     unsigned char *data = stbi_load(filename, &w, &h, &c, channels);
@@ -1453,7 +1456,7 @@ image load_image_stb(char *filename, int channels)
     }
     if(channels) c = channels;
     int i,j,k;
-    image im = make_image(w, h, c);
+    image im = make_image(w, h, c); //创建图片空间
     for(k = 0; k < c; ++k){
         for(j = 0; j < h; ++j){
             for(i = 0; i < w; ++i){
@@ -1468,6 +1471,7 @@ image load_image_stb(char *filename, int channels)
 }
 
 image load_image(char *filename, int w, int h, int c)
+//选择哪个方式加载图片，可以使用OPENCV的方式
 {
 #ifdef OPENCV
     image out = load_image_cv(filename, c);
@@ -1477,7 +1481,7 @@ image load_image(char *filename, int w, int h, int c)
 
     if((h && w) && (h != out.h || w != out.w)){
         image resized = resize_image(out, w, h);
-        free_image(out);
+        free_image(out); //把数据free掉，由于c语言没有内存管理的东西得手动处理。
         out = resized;
     }
     return out;

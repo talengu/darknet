@@ -224,6 +224,7 @@ void inter_cpu(int NX, float *X, int NY, float *Y, int B, float *OUT)
 }
 
 void copy_cpu(int N, float *X, int INCX, float *Y, int INCY)
+// 将 X的数据拷到 Y
 {
     int i;
     for(i = 0; i < N; ++i) Y[i*INCY] = X[i*INCX];

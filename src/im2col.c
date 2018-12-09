@@ -8,7 +8,7 @@ float im2col_get_pixel(float *im, int height, int width, int channels,
 
     if (row < 0 || col < 0 ||
         row >= height || col >= width) return 0;
-    return im[col + width*(row + height*channel)];
+    return im[col + width*(row + height*channel)]; // 直接计算出 位置
 }
 
 //From Berkeley Vision's Caffe!
