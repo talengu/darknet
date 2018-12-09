@@ -92,7 +92,7 @@ typedef enum {
     UPSAMPLE,
     LOGXENT,
     L2NORM,
-    BLANK
+    BLANK  //默认值
 } LAYER_TYPE;
 
 typedef enum{
@@ -122,8 +122,8 @@ struct layer{
     LAYER_TYPE type;
     ACTIVATION activation;
     COST_TYPE cost_type;
-    void (*forward)   (struct layer, struct network);
-    void (*backward)  (struct layer, struct network);
+    void (*forward)   (struct layer, struct network);//TODO: 解释
+    void (*backward)  (struct layer, struct network); // TODO：解释
     void (*update)    (struct layer, update_args);
     void (*forward_gpu)   (struct layer, struct network);
     void (*backward_gpu)  (struct layer, struct network);
@@ -436,7 +436,15 @@ typedef enum {
 typedef struct network{
     int n;
     int batch;
-    size_t *seen;
+    size_t *seen; //seen就是已经经过网络训练（看）的图片数量
+    //在C++中，设计 size_t 就是为了适应多个平台的 。
+    // size_t的引入增强了程序在不同平台上的可移植性。
+    // size_t是针对系统定制的一种数据类型，一般是整型，因为C/C++标准只定义一最低的位数，而不是必需的固定位数。
+    // 而且在内存里，对数的高位对齐存储还是低位对齐存储各系统都不一样。
+    // 为了提高代码的可移植性，就有必要定义这样的数据类型。一般这种类型都会定义到它具体占几位内存等。
+    // 当然，有些是编译器或系统已经给定义好的。经测试发现，在32位系统中size_t是4字节的，
+    // 而在64位系统中，size_t是8字节的，这样利用该类型可以增强程序的可移植性。
+    // https://baike.baidu.com/item/size_t/8101179?fr=aladdin
     int *t;
     float epoch;
     int subdivisions;

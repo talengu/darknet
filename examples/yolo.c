@@ -69,7 +69,7 @@ void train_yolo(char *cfgfile, char *weightfile)
         /*pthread_join()函数，以阻塞的方式等待thread指定的线程结束。当函数返回时，被等待线程的资源被
         收回。如果线程已经结束，那么该函数会立即返回。*/
         pthread_join(load_thread, 0);
-        train = buffer;
+        train = buffer; // 数据地址 传到 train
         load_thread = load_data_in_thread(args);
 
         printf("Loaded: %lf seconds\n", sec(clock()-time));

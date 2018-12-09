@@ -282,6 +282,7 @@ void malloc_error()
 
 void file_error(char *s)
 {
+    // 利用 stderr 进行 信息输出的自定义。
     fprintf(stderr, "Couldn't open file: %s\n", s);
     exit(0);
 }

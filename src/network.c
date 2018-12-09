@@ -55,6 +55,7 @@ network *load_network(char *cfg, char *weights, int clear)
     //网络参数解析函数
     network *net = parse_network_cfg(cfg);
     if(weights && weights[0] != 0){
+        //这里的weights 是权重文件名字
         load_weights(net, weights);
     }
     // 由于seen记录了处理images的个数所以置1就是清除操作。
@@ -292,8 +293,8 @@ float train_network_datum(network *net)
 {
     *net->seen += net->batch;
     net->train = 1;
-    forward_network(net);
-    backward_network(net);
+    forward_network(net); // 前向传
+    backward_network(net); // bp
     float error = *net->cost;
     if(((*net->seen)/net->batch)%net->subdivisions == 0) update_network(net);
     return error;
@@ -322,6 +323,7 @@ float train_network(network *net, data d)
     int i;
     float sum = 0;
     for(i = 0; i < n; ++i){
+        //net->input 是输入口
         get_next_batch(d, batch, i*batch, net->input, net->truth);
         float err = train_network_datum(net);
         sum += err;

@@ -1089,6 +1089,7 @@ data load_data_detection(int n, char **paths, int m, int w, int h, int boxes, in
 
 void *load_thread(void *ptr)
 {
+    // 这里加载数据 加载到 load_args 的 d 中
     //printf("Loading data: %d\n", rand());
     load_args a = *(struct load_args*)ptr;
     if(a.exposure == 0) a.exposure = 1;

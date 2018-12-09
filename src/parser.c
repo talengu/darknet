@@ -1,3 +1,5 @@
+// parsing xxxx formatted in some format
+// 解析的意思，这里放的都是解析的函数
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
@@ -1087,6 +1089,7 @@ void save_weights(network *net, char *filename)
 }
 
 void transpose_matrix(float *a, int rows, int cols)
+// 矩阵转置操作
 {
     float *transpose = calloc(rows*cols, sizeof(float));
     int x, y;
@@ -1172,7 +1175,7 @@ void load_convolutional_weights(layer l, FILE *fp)
         //return;
     }
     if(l.numload) l.n = l.numload;
-    int num = l.c/l.groups*l.n*l.size*l.size;
+    int num = l.c/l.groups * l.n * l.size * l.size; //计算总共多少个权重值
     fread(l.biases, sizeof(float), l.n, fp);
     if (l.batch_normalize && (!l.dontloadscales)){
         fread(l.scales, sizeof(float), l.n, fp);
@@ -1207,7 +1210,7 @@ void load_convolutional_weights(layer l, FILE *fp)
     }
     fread(l.weights, sizeof(float), num, fp);
     //if(l.c == 3) scal_cpu(num, 1./256, l.weights, 1);
-    if (l.flipped) {
+    if (l.flipped) { //是否需要翻转
         transpose_matrix(l.weights, l.c*l.size*l.size, l.n);
     }
     //if (l.binary) binarize_weights(l.weights, l.n, l.c*l.size*l.size, l.weights);
@@ -1220,6 +1223,7 @@ void load_convolutional_weights(layer l, FILE *fp)
 
 
 void load_weights_upto(network *net, char *filename, int start, int cutoff)
+// 加载网络权重，start 默认是0，cutoff 可以确定第到最后第几层结束。
 {
 #ifdef GPU
     if(net->gpu_index >= 0){
@@ -1228,15 +1232,26 @@ void load_weights_upto(network *net, char *filename, int start, int cutoff)
 #endif
     fprintf(stderr, "Loading weights from %s...", filename);
     fflush(stdout);
+    // fflush(stdin):刷新缓冲区把缓冲里面的东西丢掉
+    // fflush(stdout):刷新缓冲区把缓冲里面的东西输出到设备上去
     FILE *fp = fopen(filename, "rb");
     if(!fp) file_error(filename);
 
     int major;
     int minor;
     int revision;
+    // fread http://www.runoob.com/cprogramming/c-function-fread.html
+    // fread() 声明
+    // size_t fread(void *ptr, size_t size, size_t nmemb, FILE *stream)
+    // 参数
+    // ptr -- 这是指向带有最小尺寸 size*nmemb 字节的内存块的指针。
+    // size -- 这是要读取的每个元素的大小，以字节为单位。
+    // nmemb -- 这是元素的个数，每个元素的大小为 size 字节。
+    // stream -- 这是指向 FILE 对象的指针，该 FILE 对象指定了一个输入流。
     fread(&major, sizeof(int), 1, fp);
     fread(&minor, sizeof(int), 1, fp);
     fread(&revision, sizeof(int), 1, fp);
+
     if ((major*10 + minor) >= 2 && major < 1000 && minor < 1000){
         fread(net->seen, sizeof(size_t), 1, fp);
     } else {
@@ -1244,12 +1259,18 @@ void load_weights_upto(network *net, char *filename, int start, int cutoff)
         fread(&iseen, sizeof(int), 1, fp);
         *net->seen = iseen;
     }
-    int transpose = (major > 1000) || (minor > 1000);
+    int transpose = (major > 1000) || (minor > 1000);  // 只要 major 和 minor 有一个大于 1000 就有效
 
     int i;
+    //cutoff顾名思义，之后的参数不加载，fine tuning的时候用
+    //i++ : 先在i所在的表达式中使用i的当前值，再让i加1
+    //++i : 先让i加1，再在i所在的表达式中使用i的新值
     for(i = start; i < net->n && i < cutoff; ++i){
+        // C 语言中，“.”与“->”有什么区别？
+        // https://www.zhihu.com/question/49164544 TODO: 看一下指针那块
         layer l = net->layers[i];
-        if (l.dontload) continue;
+        if (l.dontload) continue; //不加载就跳过，continue 计算机术语，表示结束本次循环，而不终止整个循环的执行。
+        // 而是结束本次循环，进行下一次循环。
         if(l.type == CONVOLUTIONAL || l.type == DECONVOLUTIONAL){
             load_convolutional_weights(l, fp);
         }
