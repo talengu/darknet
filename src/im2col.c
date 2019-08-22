@@ -13,6 +13,9 @@ float im2col_get_pixel(float *im, int height, int width, int channels,
 
 //From Berkeley Vision's Caffe!
 //https://github.com/BVLC/caffe/blob/master/LICENSE
+
+//im2col就是image to column,就是将图像依照卷积核的大小拉伸为列向量，方便矩阵运算
+//im2col_cpu(im, l.c/l.groups, l.h, l.w, l.size, l.stride, l.pad, b);
 void im2col_cpu(float* data_im,
      int channels,  int height,  int width,
      int ksize,  int stride, int pad, float* data_col) 
@@ -22,6 +25,9 @@ void im2col_cpu(float* data_im,
     int width_col = (width + 2*pad - ksize) / stride + 1;
 
     int channels_col = channels * ksize * ksize;
+    //最外层循环是每个卷积核的参数个数
+    // https://blog.csdn.net/u014540717/article/details/53232426
+    //TODO：不是很理解
     for (c = 0; c < channels_col; ++c) {
         int w_offset = c % ksize;
         int h_offset = (c / ksize) % ksize;

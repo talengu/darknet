@@ -95,10 +95,13 @@ void gemm_nt(int M, int N, int K, float ALPHA,
 {
     int i,j,k;
     #pragma omp parallel for
+    //M=batch，每个样本有N(yolo.train.cfg中是1715=S×S×(B∗5+C))个输出
     for(i = 0; i < M; ++i){
         for(j = 0; j < N; ++j){
             register float sum = 0;
+            //K是inputs，即输入个数
             for(k = 0; k < K; ++k){
+                //输入项和权重项对应相乘相加
                 sum += ALPHA*A[i*lda+k]*B[j*ldb + k];
             }
             C[i*ldc+j] += sum;

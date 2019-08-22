@@ -199,18 +199,22 @@ void forward_network(network *netp)
     network net = *netp;
     int i;
     for(i = 0; i < net.n; ++i){
-        net.index = i;
-        layer l = net.layers[i];
+        net.index = i; //TODO：这个不是很理解
+        layer l = net.layers[i]; //获取第几层
+        //如果delta不为零，那么就把所有的输入值输入乘一个系数，用float *delta指针指向它
         if(l.delta){
-            fill_cpu(l.outputs * l.batch, 0, l.delta, 1);
+            fill_cpu(l.outputs * l.batch, 0, l.delta, 1); // 初始化 l.delta
         }
         l.forward(l, net);
-        net.input = l.output;
+        net.input = l.output; //TODO：不理解？
         if(l.truth) {
             net.truth = l.output;
         }
     }
-    calc_network_cost(netp);
+    // 计算全部层的cost
+    // 从这里看到的https://blog.csdn.net/u014540717/article/details/53193433
+    calc_network_cost(netp); // float get_network_cost(network net) 搬到这里了呀
+
 }
 
 void update_network(network *netp)
@@ -255,6 +259,7 @@ void calc_network_cost(network *netp)
             ++count;
         }
     }
+    //返回平均损失
     *net.cost = sum/count;
 }
 
@@ -282,6 +287,7 @@ void backward_network(network *netp)
         }else{
             layer prev = net.layers[i-1];
             net.input = prev.output;
+            //这里注意，因为delta是指针变量，对net.delta做修改，就相当与对prev层的delta做了修改
             net.delta = prev.delta;
         }
         net.index = i;
@@ -291,11 +297,12 @@ void backward_network(network *netp)
 
 float train_network_datum(network *net)
 {
+    // 前提：get_next_batch方法后，数据在net->input 和net->true了
     *net->seen += net->batch;
     net->train = 1;
     forward_network(net); // 前向传
     backward_network(net); // bp
-    float error = *net->cost;
+    float error = *net->cost; // 在前向传播 forward_network中计算了cost
     if(((*net->seen)/net->batch)%net->subdivisions == 0) update_network(net);
     return error;
 }
@@ -325,6 +332,7 @@ float train_network(network *net, data d)
     for(i = 0; i < n; ++i){
         //net->input 是输入口
         get_next_batch(d, batch, i*batch, net->input, net->truth);
+        // 将数据放入memory copy 到 net->input 和 net->truth 上面
         float err = train_network_datum(net);
         sum += err;
     }

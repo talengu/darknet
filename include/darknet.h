@@ -23,7 +23,7 @@ extern "C" {
 #endif
 
 #define SECRET_NUM -1234
-extern int gpu_index;
+extern int gpu_index; // 定义在 cuda.h
 
 typedef struct{
     int classes;
@@ -603,7 +603,7 @@ typedef struct node{
     void *val;
     struct node *next;
     struct node *prev;
-} node;
+} node; //用来记录valude的node 节点
 
 // 带双ptr的列表
 typedef struct list{

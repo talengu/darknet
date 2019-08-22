@@ -91,10 +91,12 @@ void shortcut_cpu(int batch, int w1, int h1, int c1, float *add, int w2, int h2,
     }
 }
 
+//计算均值
 void mean_cpu(float *x, int batch, int filters, int spatial, float *mean)
 {
     float scale = 1./(batch * spatial);
     int i,j,k;
+    //注意，这里的均值是不同batch的同一维度的feature的均值
     for(i = 0; i < filters; ++i){
         mean[i] = 0;
         for(j = 0; j < batch; ++j){
@@ -107,6 +109,7 @@ void mean_cpu(float *x, int batch, int filters, int spatial, float *mean)
     }
 }
 
+//计算方差
 void variance_cpu(float *x, float *mean, int batch, int filters, int spatial, float *variance)
 {
     float scale = 1./(batch * spatial - 1);
@@ -143,7 +146,7 @@ void l2normalize_cpu(float *x, float *dx, int batch, int filters, int spatial)
     }
 }
 
-
+//归一化
 void normalize_cpu(float *x, float *mean, float *variance, int batch, int filters, int spatial)
 {
     int b, f, i;
@@ -151,6 +154,7 @@ void normalize_cpu(float *x, float *mean, float *variance, int batch, int filter
         for(f = 0; f < filters; ++f){
             for(i = 0; i < spatial; ++i){
                 int index = b*filters*spatial + f*spatial + i;
+                //公式中的ε=.000001f
                 x[index] = (x[index] - mean[f])/(sqrt(variance[f]) + .000001f);
             }
         }
@@ -175,6 +179,7 @@ void pow_cpu(int N, float ALPHA, float *X, int INCX, float *Y, int INCY)
     for(i = 0; i < N; ++i) Y[i*INCY] = pow(X[i*INCX], ALPHA);
 }
 
+//axpy函数:y += a * x
 void axpy_cpu(int N, float ALPHA, float *X, int INCX, float *Y, int INCY)
 {
     int i;
@@ -188,6 +193,7 @@ void scal_cpu(int N, float ALPHA, float *X, int INCX)
 }
 
 void fill_cpu(int N, float ALPHA, float *X, int INCX)
+//fill_cpu(l.outputs * l.batch, 0, l.delta, 1);
 {
     int i;
     for(i = 0; i < N; ++i) X[i*INCX] = ALPHA;

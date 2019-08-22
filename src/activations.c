@@ -97,11 +97,12 @@ float activate(float x, ACTIVATION a)
     return 0;
 }
 
+// activate_array(l.output, l.outputs*l.batch, l.activation);
 void activate_array(float *x, const int n, const ACTIVATION a)
 {
     int i;
     for(i = 0; i < n; ++i){
-        x[i] = activate(x[i], a);
+        x[i] = activate(x[i], a); //对每个点，采用 ACTIVATION a 的激活函数
     }
 }
 

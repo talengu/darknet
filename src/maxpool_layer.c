@@ -85,6 +85,7 @@ void forward_maxpool_layer(const maxpool_layer l, network net)
     int h = l.out_h;
     int w = l.out_w;
     int c = l.c;
+    //注意这里的h和w是maxpooling层输出的高度和宽度
 
     for(b = 0; b < l.batch; ++b){
         for(k = 0; k < c; ++k){
@@ -93,6 +94,7 @@ void forward_maxpool_layer(const maxpool_layer l, network net)
                     int out_index = j + w*(i + h*(k + c*b));
                     float max = -FLT_MAX;
                     int max_i = -1;
+                    //寻找最大值
                     for(n = 0; n < l.size; ++n){
                         for(m = 0; m < l.size; ++m){
                             int cur_h = h_offset + i*l.stride + n;
@@ -120,6 +122,7 @@ void backward_maxpool_layer(const maxpool_layer l, network net)
     int w = l.out_w;
     int c = l.c;
     for(i = 0; i < h*w*c*l.batch; ++i){
+        //l.indexes存储的是前一层最大值的坐标
         int index = l.indexes[i];
         net.delta[index] += l.delta[i];
     }

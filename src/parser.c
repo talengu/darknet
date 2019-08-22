@@ -751,7 +751,7 @@ network *parse_network_cfg(char *filename)
     node *n = sections->front;
     if(!n) error("Config file has no sections");
     network *net = make_network(sections->size - 1);
-    net->gpu_index = gpu_index;
+    net->gpu_index = gpu_index; //extern 给出 在darknet
     size_params params;
 
     section *s = (section *)n->val; //第一个section 为整个网络的配置
@@ -772,7 +772,7 @@ network *parse_network_cfg(char *filename)
     int count = 0;
     free_section(s); //将net options的资源进行释放
     fprintf(stderr, "layer     filters    size              input                output\n");
-    while(n){
+    while(n){ //如果为空 结束
         params.index = count;
         fprintf(stderr, "%5d ", count);
         s = (section *)n->val;

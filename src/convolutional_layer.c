@@ -13,7 +13,7 @@
 #include "xnor_layer.h"
 #endif
 
-void swap_binary(convolutional_layer *l)
+void swap_binary(convolutional_layer *l) //TODO:不知道这个是干什么的
 {
     float *swap = l->weights;
     l->weights = l->binary_weights;
@@ -409,6 +409,8 @@ void resize_convolutional_layer(convolutional_layer *l, int w, int h)
     l->workspace_size = get_workspace_size(*l);
 }
 
+//add_bias(l.output, l.biases, l.batch, l.n, l.out_h*l.out_w);
+//TODO:这个函数和scale_bias()一模一样，是什么意思？明白的给解释一下呗～
 void add_bias(float *output, float *biases, int batch, int n, int size)
 {
     int i,j,b;
@@ -427,6 +429,7 @@ void scale_bias(float *output, float *scales, int batch, int n, int size)
     for(b = 0; b < batch; ++b){
         for(i = 0; i < n; ++i){
             for(j = 0; j < size; ++j){
+                //scales就是创建convolutional_layer时分配的l.scales，值全是1
                 output[(b*n + i)*size + j] *= scales[i];
             }
         }
@@ -447,6 +450,7 @@ void forward_convolutional_layer(convolutional_layer l, network net)
 {
     int i, j;
 
+    //初始化，将输出的数据全部赋值０
     fill_cpu(l.outputs*l.batch, 0, l.output, 1);
 
     if(l.xnor){
@@ -456,11 +460,19 @@ void forward_convolutional_layer(convolutional_layer l, network net)
         net.input = l.binary_input;
     }
 
+    //m是卷积核的个数，k是每个卷积核的参数数量（l.size是卷积核的大小），n是每个输出feature map的像素个数
+    //groups 是什么？
     int m = l.n/l.groups;
     int k = l.size*l.size*l.c/l.groups;
     int n = l.out_w*l.out_h;
     for(i = 0; i < l.batch; ++i){
         for(j = 0; j < l.groups; ++j){
+            // TODO：没看懂
+            // https://blog.csdn.net/u014540717/article/details/53232426
+            //weights顾名思义，就是卷积核的参数，`$grep -rn "l.weights"`可以看到：
+            //l.weights = calloc(c*n*size*size, sizeof(float))
+            //说白了a是指向权重的指针，b是指向工作空间指针，c是指向输出的指针
+
             float *a = l.weights + j*l.nweights/l.groups;
             float *b = net.workspace;
             float *c = l.output + (i*l.groups + j)*n*m;
@@ -469,19 +481,23 @@ void forward_convolutional_layer(convolutional_layer l, network net)
             if (l.size == 1) {
                 b = im;
             } else {
+                //im2col就是image to column,就是将图像依照卷积核的大小拉伸为列向量，方便矩阵运算
                 im2col_cpu(im, l.c/l.groups, l.h, l.w, l.size, l.stride, l.pad, b);
             }
             gemm(0,0,m,n,k,1,a,k,b,n,1,c,n);
         }
     }
 
-    if(l.batch_normalize){
+    if(l.batch_normalize){ //是否加上batch_normalize
         forward_batchnorm_layer(l, net);
     } else {
-        add_bias(l.output, l.biases, l.batch, l.n, l.out_h*l.out_w);
+        add_bias(l.output, l.biases, l.batch, l.n, l.out_h*l.out_w); //加上 bias
     }
 
-    activate_array(l.output, l.outputs*l.batch, l.activation);
+    activate_array(l.output, l.outputs*l.batch, l.activation); //激活函数
+
+    // TODO:有空分析一哈，前辈，binary和xnor在https://arxiv.org/abs/1603.05279这篇论文有描述的，
+    // 你可以看看，讲的是二值化神经网络的思想加入YOLO中。
     if(l.binary || l.xnor) swap_binary(&l);
 }
 

@@ -87,7 +87,7 @@ local_layer make_local_layer(int batch, int h, int w, int c, int n, int size, in
 
     return l;
 }
-
+//TODO: 不明白顾名思义，local层就是只看前一层的一部分，作者这里选择了左上角的区域
 void forward_local_layer(const local_layer l, network net)
 {
     int out_h = local_out_height(l);
@@ -110,7 +110,7 @@ void forward_local_layer(const local_layer l, network net)
             float *c = output + j;
 
             int m = l.n;
-            int n = 1;
+            int n = 1; ////n=1说明了作者只取了左上角的local区域，很容易想明白～
             int k = l.size*l.size*l.c;
 
             gemm(0,0,m,n,k,1,a,k,b,locations,1,c,locations);
@@ -124,8 +124,10 @@ void backward_local_layer(local_layer l, network net)
     int i, j;
     int locations = l.out_w*l.out_h;
 
+    //计算激活层梯度
     gradient_array(l.output, l.outputs*l.batch, l.activation, l.delta);
 
+    //跟新bias_updates
     for(i = 0; i < l.batch; ++i){
         axpy_cpu(l.outputs, 1, l.delta + i*l.outputs, 1, l.bias_updates, 1);
     }
@@ -143,6 +145,7 @@ void backward_local_layer(local_layer l, network net)
             int n = l.size*l.size*l.c;
             int k = 1;
 
+            //更新权重
             gemm(0,1,m,n,k,1,a,locations,b,locations,1,c,n);
         }
 
@@ -156,6 +159,7 @@ void backward_local_layer(local_layer l, network net)
                 int n = 1;
                 int k = l.n;
 
+                //更新下一层误差项
                 gemm(1,0,m,n,k,1,a,m,b,locations,0,c,locations);
             }
 

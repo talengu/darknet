@@ -38,10 +38,12 @@ void resize_dropout_layer(dropout_layer *l, int inputs)
 void forward_dropout_layer(dropout_layer l, network net)
 {
     int i;
+    //dropout层只在训练阶段有效
     if (!net.train) return;
     for(i = 0; i < l.batch * l.inputs; ++i){
-        float r = rand_uniform(0, 1);
+        float r = rand_uniform(0, 1); //产生0~1之间的随机数
         l.rand[i] = r;
+        //如果小于给定概率值，就把相应的输入项赋0
         if(r < l.probability) net.input[i] = 0;// 将input 设为0
         else net.input[i] *= l.scale;
     }

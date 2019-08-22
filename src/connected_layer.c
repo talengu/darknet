@@ -157,6 +157,7 @@ void forward_connected_layer(layer l, network net)
     float *a = net.input;
     float *b = l.weights;
     float *c = l.output;
+    //注意这里的TB=1了，所以调用了gemm_tn()这个函数，下面会有介绍
     gemm(0,1,m,n,k,1,a,k,b,k,1,c,n);
     if(l.batch_normalize){
         forward_batchnorm_layer(l, net);
@@ -168,6 +169,7 @@ void forward_connected_layer(layer l, network net)
 
 void backward_connected_layer(layer l, network net)
 {
+    //计算激活层的梯度值
     gradient_array(l.output, l.outputs*l.batch, l.activation, l.delta);
 
     if(l.batch_normalize){
@@ -182,6 +184,7 @@ void backward_connected_layer(layer l, network net)
     float *a = l.delta;
     float *b = net.input;
     float *c = l.weight_updates;
+    //更新这一层的权重值
     gemm(1,0,m,n,k,1,a,m,b,n,1,c,n);
 
     m = l.batch;
@@ -192,6 +195,7 @@ void backward_connected_layer(layer l, network net)
     b = l.weights;
     c = net.delta;
 
+    //更新前一（prev）层的误差项
     if(c) gemm(0,0,m,n,k,1,a,k,b,n,1,c,n);
 }
 

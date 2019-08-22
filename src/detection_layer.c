@@ -54,6 +54,7 @@ void forward_detection_layer(const detection_layer l, network net)
     memcpy(l.output, net.input, l.outputs*l.batch*sizeof(float));
     //if(l.reorg) reorg(l.output, l.w*l.h, size*l.n, l.batch, 1);
     int b;
+    //这里的softmax=0，所以最后竟然都没有softmax层……
     if (l.softmax){
         for(b = 0; b < l.batch; ++b){
             int index = b*l.inputs;
@@ -64,6 +65,7 @@ void forward_detection_layer(const detection_layer l, network net)
             }
         }
     }
+    //训练的时候才需要cost function
     if(net.train){
         float avg_iou = 0;
         float avg_cat = 0;
@@ -73,15 +75,24 @@ void forward_detection_layer(const detection_layer l, network net)
         int count = 0;
         *(l.cost) = 0;
         int size = l.inputs * l.batch;
-        memset(l.delta, 0, size * sizeof(float));
+        /*void *memset(void *s, int ch, size_t n);
+        memset是计算机中C/C++语言函数。将s所指向的某一块内存中的前n个 字节的内容全部设置
+        为ch指定的ASCII值*/
+        memset(l.delta, 0, size * sizeof(float)); //l.delta存放的loss function的没一项
         for (b = 0; b < l.batch; ++b){
             int index = b*l.inputs;
+            //locations = 7*7
             for (i = 0; i < locations; ++i) {
+                //coords包括x, y, w, h，1代表的是置信度
+                //truth_index是真实值的坐标索引
                 int truth_index = (b*locations + i)*(1+l.coords+l.classes);
                 int is_obj = net.truth[truth_index];
+                //计算置信度的损失
                 for (j = 0; j < l.n; ++j) {
+                    //p_index是预测值的坐标索引，每个网格预测l.n个框，这里l.n=3（cfg文件中的num值）,论文中是2
                     int p_index = index + locations*l.classes + i*l.n + j;
                     l.delta[p_index] = l.noobject_scale*(0 - l.output[p_index]);
+                    //对应论文公式，这里先假设B个框中都没有物体
                     *(l.cost) += l.noobject_scale*pow(l.output[p_index], 2);
                     avg_anyobj += l.output[p_index];
                 }
@@ -96,16 +107,19 @@ void forward_detection_layer(const detection_layer l, network net)
 
                 int class_index = index + i*l.classes;
                 for(j = 0; j < l.classes; ++j) {
+                    //计算类别的损失
                     l.delta[class_index+j] = l.class_scale * (net.truth[truth_index+1+j] - l.output[class_index+j]);
                     *(l.cost) += l.class_scale * pow(net.truth[truth_index+1+j] - l.output[class_index+j], 2);
                     if(net.truth[truth_index + 1 + j]) avg_cat += l.output[class_index+j];
                     avg_allcat += l.output[class_index+j];
                 }
-
+                //计算位置信息的损失
                 box truth = float_to_box(net.truth + truth_index + 1 + l.classes, 1);
                 truth.x /= l.side;
                 truth.y /= l.side;
 
+                /*寻找最后预测框（We only predict one set of class probabilities per grid cell,
+                regardless of the number of boxes B）*/
                 for(j = 0; j < l.n; ++j){
                     int box_index = index + locations*(l.classes + l.n) + (i*l.n + j) * l.coords;
                     box out = float_to_box(l.output + box_index, 1);
@@ -116,10 +130,12 @@ void forward_detection_layer(const detection_layer l, network net)
                         out.w = out.w*out.w;
                         out.h = out.h*out.h;
                     }
-
+                    //计算iou的值
                     float iou  = box_iou(out, truth);
                     //iou = 0;
+                    //计算均方根误差（root-mean-square error）
                     float rmse = box_rmse(out, truth);
+                    //选出iou最大或者均方根误差最小的那个框作为最后预测框～
                     if(best_iou > 0 || iou > 0){
                         if(iou > best_iou){
                             best_iou = iou;
@@ -133,6 +149,7 @@ void forward_detection_layer(const detection_layer l, network net)
                     }
                 }
 
+                //强制确定一个最后预测框
                 if(l.forced){
                     if(truth.w*truth.h < .1){
                         best_index = 1;
@@ -140,11 +157,13 @@ void forward_detection_layer(const detection_layer l, network net)
                         best_index = 0;
                     }
                 }
+                //随机确定一个最后预测框～
                 if(l.random && *(net.seen) < 64000){
                     best_index = rand()%l.n;
                 }
-
+                //预测的框的索引
                 int box_index = index + locations*(l.classes + l.n) + (i*l.n + best_index) * l.coords;
+                //真实框的索引
                 int tbox_index = truth_index + 1 + l.classes;
 
                 box out = float_to_box(l.output + box_index, 1);
@@ -158,6 +177,7 @@ void forward_detection_layer(const detection_layer l, network net)
 
                 //printf("%d,", best_index);
                 int p_index = index + locations*l.classes + i*l.n + best_index;
+                //前面假设了B个框中都没有物体来计算损失，这里再把有物体的那个减掉
                 *(l.cost) -= l.noobject_scale * pow(l.output[p_index], 2);
                 *(l.cost) += l.object_scale * pow(1-l.output[p_index], 2);
                 avg_obj += l.output[p_index];
@@ -176,12 +196,15 @@ void forward_detection_layer(const detection_layer l, network net)
                     l.delta[box_index+3] = l.coord_scale*(sqrt(net.truth[tbox_index + 3]) - l.output[box_index + 3]);
                 }
 
+                //把iou作为损失，这包含了x,y,w,h四个参数，其实后来没用iou来计算损失，而是论文中给的公式
                 *(l.cost) += pow(1-iou, 2);
                 avg_iou += iou;
                 ++count;
             }
         }
 
+
+        //论文中没用到
         if(0){
             float *costs = calloc(l.batch*locations*l.n, sizeof(float));
             for (b = 0; b < l.batch; ++b) {
@@ -208,10 +231,10 @@ void forward_detection_layer(const detection_layer l, network net)
             free(costs);
         }
 
-
+        //前面的*(l.cost)其实可以注释掉了，因为前面都没用，到这里才计算loss
         *(l.cost) = pow(mag_array(l.delta, l.outputs * l.batch), 2);
 
-
+        //打印log
         printf("Detection Avg IOU: %f, Pos Cat: %f, All Cat: %f, Pos Obj: %f, Any Obj: %f, count: %d\n", avg_iou/count, avg_cat/count, avg_allcat/(count*l.classes), avg_obj/count, avg_anyobj/(l.batch*locations*l.n), count);
         //if(l.reorg) reorg(l.delta, l.w*l.h, size*l.n, l.batch, 0);
     }
@@ -219,6 +242,7 @@ void forward_detection_layer(const detection_layer l, network net)
 
 void backward_detection_layer(const detection_layer l, network net)
 {
+    //给net.delta赋值，l.delta存放的是预测值与真实值的差
     axpy_cpu(l.batch*l.inputs, 1, l.delta, 1, net.delta, 1);
 }
 
